@@ -1,3 +1,4 @@
+import 'package:bytebank/components/centered_message.dart';
 import 'package:bytebank/components/progress.dart';
 import 'package:bytebank/http/webclient.dart';
 import 'package:bytebank/models/transaction.dart';
@@ -11,14 +12,19 @@ class TransactionsList extends StatelessWidget {
         title: Text('Transactions'),
       ),
       body: FutureBuilder<List<Transaction>>(
-        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
+        future: findAll(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Progress();
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
-            final List<Transaction> transactions = snapshot.data!;
+            final List<Transaction> transactions = snapshot.data ?? [];
+
+            if (transactions.isEmpty) {
+              return CenteredMessage("Transactions not found",
+                  icon: Icons.warning);
+            }
 
             return ListView.builder(
               itemBuilder: (context, index) {
@@ -46,7 +52,7 @@ class TransactionsList extends StatelessWidget {
             );
           }
 
-          return Text("Unknown error");
+          return CenteredMessage("Unknown error");
         },
       ),
     );
