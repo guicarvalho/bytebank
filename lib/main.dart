@@ -1,8 +1,10 @@
+import 'package:bytebank/http/webclient.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
+  findAll().then((transactions) => print('new transactions $transactions'));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: (Colors.green[900])!,
+                color: Colors.green[900]!,
                 style: BorderStyle.solid,
                 width: 1.0,
               ),
