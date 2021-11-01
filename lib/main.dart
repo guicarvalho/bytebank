@@ -24,8 +24,7 @@ class MyApp extends StatelessWidget {
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.green[900]!,
-                style: BorderStyle.solid,
-                width: 1.0,
+                width: 2,
               ),
             )),
       ),
